@@ -1,0 +1,77 @@
+#get node position
+node['xpos'].value()
+
+#set node position
+node.setXpos(xpos)
+
+#convert rgb values to hexidecimal
+def rgb2hex(red, green, blue):
+     return int('%02x%02x%02x%02x' % (int(red*255),int(green*255),int(blue*255),255),16)
+     
+colour = node['rgb_knob'].getValue()
+colour = hex_color_to_rgb(colour[0],colour[1],colour[2])
+node['tile_color'].setValue(colour)
+
+#delete existing nodes of particular class and name segment
+for i in nuke.allNodes():
+    if i.Class() == "NoOp" and "shot" in i.knob('name').value():
+        nuke.delete(i)
+
+#create node
+node = nuke.createNode('NoOp')
+   
+#set input connection
+node.setInput(0, None)
+
+#set node name
+node['name'].setValue(custom_name)   
+
+#create backdrop with defined size
+nuke.nodes.BackdropNode(bdwidth = width_value, bdheight = height_value)
+
+#set text size
+node['note_font_size'].setValue(text_size)
+
+#split string via character
+file.split("/")
+
+#duplicate selected node
+nuke.nodeCopy('%clipboard%')
+nuke.selectAll()
+nuke.invertSelection()
+nuke.nodePaste('%clipboard%')
+node = nuke.selectedNode()
+
+#set project range
+nuke.root()['first_frame'].setValue(first)
+nuke.root()['last_frame'].setValue(last)
+
+#replace part of file path
+nodes = nuke.selectedNodes()
+for node in nodes:
+  file = node.knob('file').value()
+  file_ammended = file.replace('%04d.exr','lt.%04d.exr')
+  n.knob('file').setValue(file_ammended)
+
+#get current working directory
+import os
+print os.getcwd()
+
+#check if variable not equal to multiple things
+while choice not in [1, 2, 3]:
+
+#get shot version from filename
+file = nuke.root().knob('name').value()
+version = file.split(".")
+version = version[0].split("_")
+
+#get filename
+file = nuke.root().knob('name').value()
+
+#execute render
+nuke.execute('writeNodeName', startFrame, endFrame)
+
+#create knob
+knob = nuke.KnobType('knob', 'Text')
+node.addKnob(knob)
+
